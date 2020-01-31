@@ -3,17 +3,19 @@ provider "aws" {
   region     = "eu-west-1"
 }
 
-terraform {
-  backend "s3" {
-    bucket = "terraform-remote-state-workspace-harry-test"
-    key    = "terraform/remotestate"
-    region = "eu-west-1"
-  }
+// Using S3 as a remote state backend does not support states per workspace
 
-}
+//terraform {
+//  backend "s3" {
+//    bucket = "terraform-remote-state-workspace-harry-test"
+//    key    = "terraform/remotestate"
+//    region = "eu-west-1"
+//  }
+//
+//}
 
 module "variables" {
-  source = "../../terraform-playground-variables"
+  source = "github.com/stroeer/terraform-playground-variables"
 }
 
 resource "aws_instance" "instance_per_env" {
